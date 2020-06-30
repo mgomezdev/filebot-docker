@@ -1,9 +1,30 @@
 FROM rednoah/filebot
 
-MAINTAINER Reinhard Pointner <rednoah@filebot.net>
-
 COPY filebot-watcher /usr/bin/filebot-watcher
 
-ENV SETTLE_DOWN_TIME 600
+# Set environment variables.
+ENV OPENSUBTITLES_USERNAME= \
+    OPENSUBTITLES_PASSWORD= \
+    AMC_INTERVAL="30" \
+    AMC_INPUT_STABLE_TIME="10" \
+    AMC_ACTION="test" \
+    AMC_CONFLICT="auto" \
+    AMC_MATCH_MODE="opportunistic" \
+    AMC_ARTWORK="n" \
+    AMC_MUSIC_FORMAT="{plex}" \
+    AMC_MOVIE_FORMAT="{plex}" \
+    AMC_SERIES_FORMAT="{plex}" \
+    AMC_ANIME_FORMAT="{plex}" \
+    AMC_PROCESS_MUSIC="y" \
+    AMC_SUBTITLE_LANG= \
+    AMC_CUSTOM_OPTIONS= \
+    AMC_INPUT_FOLDER=/watch \
+    AMC_OUTPUT_FOLDER=/output
+
+# Define mountable directories.
+VOLUME ["/config"]
+VOLUME ["/storage"]
+VOLUME ["/watch"]
+VOLUME ["/output"]
 
 ENTRYPOINT ["/usr/bin/filebot-watcher"]
